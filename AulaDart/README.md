@@ -1,4 +1,4 @@
 ## Dicas
 
 
-Estes arquivos foram desenvolvidos utilizando-se o (Dartpad)[https://dartpad.dev/]
+Estes arquivos foram desenvolvidos utilizando-se o [Dartpad](https://dartpad.dev/)
