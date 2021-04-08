@@ -47,3 +47,6 @@ Para usuários de MAC:
    Se aparecer "erro" de licenças, rodar o comando "flutter doctor --android-licenses"
    Aceitar todas as licenças com "y" e enter...
    Rodar novamente "flutter doctor" e verificar se todos os itens estão Ok.
+
+
+Link indicado pelos alunos: https://www.treinaweb.com.br/blog/configurando-ambiente-de-desenvolvimento-flutter/
