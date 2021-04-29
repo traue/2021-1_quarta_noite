@@ -13,6 +13,25 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
+  GlobalKey<FormState> _formkey = GlobalKey<FormState>();
+  String _resultado = "Informe os valores";
+  TextEditingController alcoolController = TextEditingController();
+  TextEditingController gasolinaController = TextEditingController();
+
+  //falta:fazer a valifação do formulário usando o _formkey
+
+  void _calculaCombustivelIdeal() {
+    setState(() {
+      double vAlcool = double.parse(alcoolController.text.replaceAll(',', '.'));
+      double vGasolina = double.parse(gasolinaController.text.replaceAll(',', '.'));
+
+      double proporcao = vAlcool / vGasolina;
+
+      _resultado = (proporcao < 0.7) ? "Abasteça com Álcool" : "Abasteça com Gasolina";
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,6 +52,7 @@ class _HomeState extends State<Home> {
               color: Colors.lightBlue[900],
             ),
             TextFormField(
+              controller: alcoolController,
               textAlign: TextAlign.center,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
@@ -41,6 +61,7 @@ class _HomeState extends State<Home> {
               style: TextStyle(color: Colors.lightBlue[900], fontSize: 26.0),
             ),
             TextFormField(
+              controller: gasolinaController,
               textAlign: TextAlign.center,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
@@ -48,7 +69,30 @@ class _HomeState extends State<Home> {
                   labelStyle: TextStyle(color: Colors.lightBlue[900])),
               style: TextStyle(color: Colors.lightBlue[900], fontSize: 26.0),
             ),
-            //PARAMOS AQUI... FALTA O BOTÃO E A LÓGICA
+            Padding(
+              padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+              child: Container(
+                height: 50.0,
+                child: ElevatedButton(
+                  onPressed: () {
+                    _calculaCombustivelIdeal();
+                  },
+                  child: Text('Verificar'),
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.lightBlue[900],
+                    onPrimary: Colors.white,
+                    textStyle: TextStyle(
+                      fontSize: 25.0,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Text(
+              _resultado,
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.lightBlue[900], fontSize: 26.0),
+            )
           ],
         ),
       ),
