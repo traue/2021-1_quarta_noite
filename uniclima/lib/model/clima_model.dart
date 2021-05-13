@@ -14,5 +14,17 @@ class ClimaData {
       this.icone,
       this.umidade});
 
-  //Paramos aqui, falta criar a factory dela
+  factory ClimaData.fromJson(Map<String, dynamic> json) {
+
+    String capitalize(String s) => s[0].toUpperCase() + s.substring(1);
+    
+    return ClimaData(
+      temp: json['main']['tempo'].toDouble(),
+      tempMax: json['main']['temp_max'].toDouble(),
+      tempMin: json['main']['temp_min'].toDouble(),
+      descTemp: capitalize(json['weather'][0]['description']),
+      icone: (json['weather'][0]['icon']),
+      umidade: json['main']['humidity'].toInt()
+    );
+  }
 }
