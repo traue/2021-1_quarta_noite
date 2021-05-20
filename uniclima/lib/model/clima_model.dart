@@ -19,7 +19,7 @@ class ClimaData {
     String capitalize(String s) => s[0].toUpperCase() + s.substring(1);
     
     return ClimaData(
-      temp: json['main']['tempo'].toDouble(),
+      temp: json['main']['temp'].toDouble(),
       tempMax: json['main']['temp_max'].toDouble(),
       tempMin: json['main']['temp_min'].toDouble(),
       descTemp: capitalize(json['weather'][0]['description']),

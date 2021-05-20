@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:searchable_dropdown/searchable_dropdown.dart';
 import 'package:http/http.dart' as http;
 import 'package:uniclima/model/clima_model.dart';
+import 'package:uniclima/widgets/clima_widget.dart';
 
 
 class Home extends StatefulWidget {
@@ -48,7 +49,12 @@ class _HomeState extends State<Home> {
 
   String _cidadeSelecionada = "São Paulo";
 
-  //pronto, falta apenas "chamar"
+  @override
+  void initState() {
+    super.initState();
+    carregaTempo();
+  }
+
   carregaTempo() async {
     setState(() {
       isLoading = true;
@@ -95,6 +101,7 @@ class _HomeState extends State<Home> {
               onChanged: (value) {
                 setState(() {
                   _cidadeSelecionada = value;
+                  carregaTempo();
                 });
               },
               displayClearIcon: false,
@@ -114,7 +121,15 @@ class _HomeState extends State<Home> {
                             strokeWidth: 6.0,
                             valueColor: AlwaysStoppedAnimation(Colors.blue),
                           )
-                        : Container())
+                        : climaData != null
+                      ? ClimaWidget(dadosClimaticos: climaData)
+                      : Container(
+                      child: Text(
+                        'Sem dados para exibir',
+                        style: Theme.of(context).textTheme.headline4,
+                      ),
+                    )
+                )
               ],
             ))
           ],
