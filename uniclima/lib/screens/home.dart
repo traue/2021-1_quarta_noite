@@ -92,7 +92,7 @@ class _HomeState extends State<Home> {
         centerTitle: true,
       ),
       body: Center(
-        child: Column(
+        child: Column(  
           children: [
             SearchableDropdown.single(
               items: _cidades
