@@ -6,14 +6,12 @@ import 'package:http/http.dart' as http;
 import 'package:uniclima/model/clima_model.dart';
 import 'package:uniclima/widgets/clima_widget.dart';
 
-
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
-
   bool isLoading = false;
   ClimaData climaData;
 
@@ -60,23 +58,23 @@ class _HomeState extends State<Home> {
       isLoading = true;
     });
 
-    final String _appid = ''; //Coloque aqui SUA chave de API
+    final String _appid = '70490ee3c06c559a659a5d846008bbd3'; //Coloque aqui SUA chave de API
     final String _lang = 'pt_br';
     final String _units = 'metric';
     final _apiUrl = 'api.openweathermap.org';
     final _path = '/data/2.5/weather';
     final _params = {
       "q": _cidadeSelecionada,
-      "appid" : _appid,
-      "units" : _units,
-      "lang" : _lang
+      "appid": _appid,
+      "units": _units,
+      "lang": _lang
     };
 
     final climaResponse = await http.get(Uri.https(_apiUrl, _path, _params));
 
     print('Url montada: ' + climaResponse.request.url.toString());
 
-    if(climaResponse.statusCode == 200) {
+    if (climaResponse.statusCode == 200) {
       return setState(() {
         isLoading = false;
         climaData = ClimaData.fromJson(jsonDecode(climaResponse.body));
@@ -92,7 +90,7 @@ class _HomeState extends State<Home> {
         centerTitle: true,
       ),
       body: Center(
-        child: Column(  
+        child: Column(
           children: [
             SearchableDropdown.single(
               items: _cidades
@@ -112,26 +110,41 @@ class _HomeState extends State<Home> {
             ),
             Expanded(
                 child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                    padding: EdgeInsets.all(6.0),
-                    child: isLoading
-                        ? CircularProgressIndicator(
-                            strokeWidth: 6.0,
-                            valueColor: AlwaysStoppedAnimation(Colors.blue),
-                          )
-                        : climaData != null
-                      ? ClimaWidget(dadosClimaticos: climaData)
-                      : Container(
-                      child: Text(
-                        'Sem dados para exibir',
-                        style: Theme.of(context).textTheme.headline4,
-                      ),
-                    )
-                )
-              ],
-            ))
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                  Padding(
+                      padding: EdgeInsets.all(6.0),
+                      child: isLoading
+                          ? CircularProgressIndicator(
+                              strokeWidth: 6.0,
+                              valueColor: AlwaysStoppedAnimation(Colors.blue),
+                            )
+                          : climaData != null
+                              ? ClimaWidget(dadosClimaticos: climaData)
+                              : Container(
+                                  child: Text(
+                                    'Sem dados para exibir',
+                                    style:
+                                        Theme.of(context).textTheme.headline4,
+                                  ),
+                                )),
+                  Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: isLoading
+                          ? Container(
+                              child: Text(
+                                "Carregando...",
+                                style: Theme.of(context).textTheme.headline5,
+                              ),
+                            )
+                          : IconButton(
+                              icon: Icon(Icons.refresh),
+                              onPressed: carregaTempo,
+                              iconSize: 40.0,
+                              color: Colors.blue,
+                              tooltip: 'Recarregar',
+                            ))
+                ]))
           ],
         ),
       ),
