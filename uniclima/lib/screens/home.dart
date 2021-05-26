@@ -58,7 +58,7 @@ class _HomeState extends State<Home> {
       isLoading = true;
     });
 
-    final String _appid = '70490ee3c06c559a659a5d846008bbd3'; //Coloque aqui SUA chave de API
+    final String _appid = ''; //Coloque aqui SUA chave de API
     final String _lang = 'pt_br';
     final String _units = 'metric';
     final _apiUrl = 'api.openweathermap.org';
