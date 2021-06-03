@@ -24,6 +24,7 @@ class _HomeState extends State<Home> {
     });
   }
 
+  //VERIFICAR ESTE MÉTODO
   Future<File> _abreArquivo() async {
     final diretorio = await getApplicationDocumentsDirectory();
     return File("$diretorio/todoList.json");
