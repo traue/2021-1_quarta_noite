@@ -20,14 +20,15 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
     _lerDados().then((value) {
-      _todoList = json.decode(value);
+      setState(() {
+        _todoList = json.decode(value);
+      });
     });
   }
 
-  //VERIFICAR ESTE MÉTODO
   Future<File> _abreArquivo() async {
     final diretorio = await getApplicationDocumentsDirectory();
-    return File("$diretorio/todoList.json");
+    return File("${diretorio.path}/todoList.json");
   }
 
   Future<String> _lerDados() async {
@@ -60,10 +61,11 @@ class _HomeState extends State<Home> {
     await Future.delayed(Duration(seconds: 1));
     setState(() {
       _todoList.sort((a, b) {
-        if (a["realizado"] && b["realizado"]) return 1;
+        if (a["realizado"] && !b["realizado"]) return 1;
         if (!a["realizado"] && b["realizado"]) return -1;
         return 0;
       });
+      _salvarDados();
     });
     return null;
   }
