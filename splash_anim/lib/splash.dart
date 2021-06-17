@@ -14,10 +14,10 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  Artboard _riveArtboard = Artboard();
-  RiveAnimationController ?_controller;
+  late Artboard _riveArtboard;
+  late RiveAnimationController _controller;
 
-  bool get isPlaying => _controller?.isActive ?? false;
+  bool get isPlaying => _controller.isActive;
 
   startTime() async {
     var duration = new Duration(seconds: 3);
@@ -49,7 +49,7 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Padding(
         padding: const EdgeInsets.all(50.0),
         child: Center(
-            child: isPlaying
+            child: _riveArtboard == null
                 ? const SizedBox()
                 : Rive(artboard: _riveArtboard)),
       ),
